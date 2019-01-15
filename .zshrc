@@ -49,7 +49,7 @@ alias fix_audio='killall pulseaudio; rm -r ~/.config/pulse/*; rm -r ~/.pulse; pu
 alias 2pdf='wkhtmltopdf -g --disable-javascript --no-background'
 alias k='kubectl'
 alias cfg='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
-# cfg config status.showUntrackedFiles no
+cfg config status.showUntrackedFiles no
 
 #-------------------------#
 # FUNCTIONS               #
@@ -114,6 +114,7 @@ fpath=( "$HOME/.zfunctions" $fpath )
 autoload -U promptinit; promptinit
 prompt pure
 PURE_GIT_PULL=0
+PURE_PROMPT_SYMBOL='$'
 
 #-----------------------------#
 # SHELL - SYNTAX HIGHLIGHTING #
