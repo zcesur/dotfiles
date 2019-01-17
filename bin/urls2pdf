@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+gen_tmp_dir() {
+    echo "/tmp/$(openssl rand -hex 8)"
+}
+
+usage=$(
+    cat <<EOF
+Usage: $(basename "$0") [options] [infile]
+
+Generate a PDF file with the contents of the URLs found in the given file or
+the standard input.
+
+OPTIONS:
+   -h      print this help
+   -q      be less verbose
+   -o      outfile
+EOF
+)
+
+# Parse args
+outfile=
+quiet=
+verbose='-v'
+while getopts 'hqo:' opt; do
+    case "$opt" in
+    h)
+        echo "$usage"
+        exit
+        ;;
+    o)
+        outfile=$OPTARG
+        ;;
+    q)
+        quiet='-q'
+        verbose=
+        ;;
+    ?)
+        echo "$usage"
+        exit 1
+        ;;
+    esac
+done
+
+if [[ -z "$outfile" ]]; then
+    printf "%s: -o option is required\n%s\n" "$0" "$usage"
+    exit 1
+fi
+
+infile="${!OPTIND}"
+if [[ -z "$infile" || "$infile" == '-' ]]; then
+    infile='/dev/stdin'
+elif [[ ! -f "$infile" ]]; then
+    printf "%s:%s:%s: No such file\n%s\n" "$0" "$LINENO" "$infile" "$usage"
+    exit 1
+fi
+
+# Create a temporary workdir
+tmp_dir="$(gen_tmp_dir)"
+while [[ -d "$tmp_dir" ]]; do
+    tmp_dir="$(gen_tmp_dir)"
+done
+mkdir ${verbose} -p "$tmp_dir"
+
+# Read lines of URLs from the given file or stdin and download them as PDFs
+i=1
+while IFS= read -r url || [[ -n "$url" ]]; do
+    bname="$(basename "$url")"
+    fname="${bname%.*}"
+    fname_out="$(printf '%02d-%s.pdf' "$i" "$fname")"
+    wkhtmltopdf ${quiet} "$url" "$tmp_dir/$fname_out"
+    ((i++))
+done <"$infile"
+
+# Merge the PDFs into a single one
+gs -dBATCH -dNOPAUSE ${quiet} \
+    -sDEVICE='pdfwrite' \
+    -sOutputFile="$outfile" \
+    "$tmp_dir/"*.pdf
+
+# Remove the workdir
+rm -r ${verbose} "$tmp_dir"
