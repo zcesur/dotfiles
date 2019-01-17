@@ -32,7 +32,7 @@ bindkey '^[OB' history-beginning-search-forward
 #-------------------------#
 # TMUX                    #
 #-------------------------#
-exists tmux && [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
+exists tmux && [[ -z $TMUX ]] && exec tmux -2 attach
 
 #-------------------------#
 # PATH                    #
@@ -40,6 +40,7 @@ exists tmux && [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2 attach
 if [ -f '/usr/local/google-cloud-sdk/path.zsh.inc' ]; then source '/usr/local/google-cloud-sdk/path.zsh.inc'; fi
 if [ -e '/home/cesur/.nix-profile/etc/profile.d/nix.sh' ]; then source '/home/cesur/.nix-profile/etc/profile.d/nix.sh'; fi
 if [ -e '/home/cesur/anaconda2/etc/profile.d/conda.sh' ]; then source '/home/cesur/anaconda2/etc/profile.d/conda.sh'; fi
+fpath=("$HOME/.zfunctions" $fpath)
 
 #-------------------------#
 # ALIASES                 #
@@ -49,7 +50,6 @@ alias fix_audio='killall pulseaudio; rm -r ~/.config/pulse/*; rm -r ~/.pulse; pu
 alias 2pdf='wkhtmltopdf -g --disable-javascript --no-background'
 alias k='kubectl'
 alias cfg='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
-cfg config status.showUntrackedFiles no
 
 #-------------------------#
 # FUNCTIONS               #
@@ -61,8 +61,7 @@ mv_untracked() {
     fi
 
     IFS=$'\n'
-    for file in $(git ls-files --others --exclude-standard)
-    do
+    for file in $(git ls-files --others --exclude-standard); do
         mkdir -p $1
         mv $file $1
     done
@@ -71,8 +70,7 @@ mv_untracked() {
 
 update_submodules() {
     cd ~
-    for i in $(ls -d .plugins/*)
-    do
+    for i in $(ls -d .plugins/*); do
         if [ -d "$i"/.git ]; then
             git submodule add $(cd $i && git remote show origin | grep Fetch | awk '{print $3}') ./$i
         fi
@@ -110,15 +108,15 @@ exists kubectl && source <(kubectl completion zsh)
 #-------------------------#
 # SHELL - PROMPT          #
 #-------------------------#
-fpath=( "$HOME/.zfunctions" $fpath )
-autoload -U promptinit; promptinit
+autoload -U promptinit
+promptinit
 prompt pure
 PURE_GIT_PULL=0
 PURE_PROMPT_SYMBOL='$'
 
-#-----------------------------#
-# SHELL - SYNTAX HIGHLIGHTING #
-#-----------------------------#
+#-------------------------#
+# SHELL - HIGHLIGHTING    #
+#-------------------------#
 if [ -e '/home/cesur/.plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' ]; then source '/home/cesur/.plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'; fi
 ZSH_HIGHLIGHT_STYLES[path]=
 zle_highlight+=(paste:none)

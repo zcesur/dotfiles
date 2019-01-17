@@ -125,7 +125,8 @@ let g:ale_linters = {
 \   'python': ['flake8'],
 \   'javascript': ['eslint'],
 \   'typescript': ['tslint'],
-\   'go': ['gometalinter', 'gofmt']
+\   'go': ['gometalinter', 'gofmt'],
+\   'sh': ['shellcheck']
 \}
 let g:ale_fixers = {
 \   'haskell': ['hlint'],
@@ -134,7 +135,8 @@ let g:ale_fixers = {
 \   'typescript': ['tslint'],
 \   'go': ['gofmt'],
 \   'css': ['prettier'],
-\   'json': ['prettier']
+\   'json': ['prettier', 'jq'],
+\   'sh': ['shfmt']
 \}
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
