@@ -1,32 +1,5 @@
-" Plugins
-if !filereadable(expand('~/.vim/autoload/plug.vim'))
-    silent !\curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall
-endif
-
-call plug#begin(expand('~/.vim/plugged'))
-Plug 'tpope/vim-commentary'                " Comment stuff out
-Plug 'tpope/vim-surround'                  " Mappings to easily delete, change and add surroundings in pairs
-Plug 'tpope/vim-repeat'                    " Enable repeating supported plugin maps with '.'
-Plug 'tpope/vim-dispatch'                  " Asynchronous build and test dispatcher
-Plug 'w0rp/ale'                            " Asynchronous Lint Engine
-Plug 'epeli/slimux'                        " Interact with different tmux panes directly from Vim
-Plug 'easymotion/vim-easymotion'           " EasyMotion
-Plug 'mattn/emmet-vim'                     " Expanding abbreviations
-Plug 'godlygeek/tabular'                   " Text filtering and alignment
-
-Plug 'eagletmt/ghcmod-vim'                 " Haskell stuff
-Plug 'eagletmt/neco-ghc'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'neovimhaskell/haskell-vim'
-
-Plug 'pangloss/vim-javascript'             " Javascript stuff
-Plug 'mxw/vim-jsx'
-Plug 'leafgarland/typescript-vim'
-Plug 'elzr/vim-json'
-call plug#end()
-
 " Main config
+execute pathogen#infect()
 syntax enable                       " enable syntax processing
 colorscheme Tomorrow-Night-Eighties
 set backspace=indent,eol,start
