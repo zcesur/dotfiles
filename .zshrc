@@ -46,7 +46,6 @@ fpath=("$HOME/.zfunctions" $fpath)
 # ALIASES                 #
 #-------------------------#
 alias ls='ls --color=auto'
-alias fix_audio='killall pulseaudio; rm -r ~/.config/pulse/*; rm -r ~/.pulse; pulseaudio -k*'
 alias 2pdf='wkhtmltopdf -g --disable-javascript --no-background'
 alias k='kubectl'
 alias cfg='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
@@ -54,45 +53,45 @@ alias cfg='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
 #-------------------------#
 # FUNCTIONS               #
 #-------------------------#
+fix_audio() {
+    rm -r ~/.config/pulse/*
+    rm -r ~/.pulse
+    pulseaudio -k
+}
+
 mv_untracked() {
     if [ $# -eq 0 ]; then
         echo "Missing file operand"
-        exit 1
+        return 1
     fi
+    mkdir -p "$1"
 
-    IFS=$'\n'
-    for file in $(git ls-files --others --exclude-standard); do
-        mkdir -p $1
-        mv $file $1
-    done
-    unset IFS
+    git ls-files -z --others --exclude-standard | xargs -0 mv -nt "$1"
 }
 
 update_submodules() {
-    cd ~
-    for i in $(ls -d .plugins/*); do
-        if [ -d "$i"/.git ]; then
-            git submodule add $(cd $i && git remote show origin | grep Fetch | awk '{print $3}') ./$i
-        fi
-    done
+    cfg submodule foreach git pull origin master
 }
 
 fnd() {
-    dir='/home/cesur/proj/Algora/main'
+    local dir='/home/cesur/proj/Algora/main'
     find $dir $dir/algora/ $dir/js/ $dir/templates/ \
         -maxdepth 1 \
         -type f \
         -exec grep --color -InH "$1" {} \;
 }
 
-ls_nonascii() {
-    dir=$([ $# -eq 0 ] && echo '.' || echo "$1")
+find_nonascii() {
+    local dir=$([ $# -eq 0 ] && echo '.' || echo "$1")
     LC_ALL=C find "$dir" -name '*[! -~]*'
 }
 
 ls_hex() {
-    dir=$([ $# -eq 0 ] && echo '.' || echo "$1")
-    find "$dir" -maxdepth 1 -type f -exec sh -c 'printf "%-10s %s\n" "$1" "$(printf "$1" | xxd -pu )"' None {} \;
+    local dir=$([ $# -eq 0 ] && echo '.' || echo "$1")
+    find "$dir" \
+        -maxdepth 1 \
+        -exec sh -c \
+        'printf "%-10s %s\n" "$1" "$(printf "$1" | xxd -pu )"' None {} \;
 }
 
 rm_symlink() {

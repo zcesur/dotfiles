@@ -152,7 +152,7 @@ augroup END
 
 augroup overlength
     au!
-    au FileType python,haskell,javascript,go
+    au FileType python,haskell,javascript,go,sh
         \ highlight OverLength ctermbg=red ctermfg=white |
         \ match OverLength /\%81v.\+/ |
         \ nnoremap <leader><leader> :cal cursor(0, 80) \| :execute "normal! Bhxi\<lt>CR>"<CR>
