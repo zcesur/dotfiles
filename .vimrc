@@ -3,7 +3,7 @@ execute pathogen#infect()
 syntax enable                       " enable syntax processing
 colorscheme Tomorrow-Night-Eighties
 set backspace=indent,eol,start
-set number                          " show line numbers
+set number relativenumber           " show hybrid line numbers
 set showcmd                         " show command in bottom bar
 set cursorline                      " highlight current line
 set wildmenu                        " visual autocomplete for command menu
@@ -76,16 +76,6 @@ let g:user_emmet_settings = {
     \  },
   \}
 
-" EasyMotion config
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-
 " ALE config
 let g:ale_set_highlights = 0
 let g:ale_lint_on_enter = 0
@@ -114,6 +104,9 @@ let g:ale_fixers = {
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0
+let g:ale_python_flake8_executable = 'python3'
+
+let g:hardtime_default_on = 1
 
 augroup detect
     au!
@@ -125,7 +118,7 @@ augroup END
 
 augroup overlength
     au!
-    au FileType python,haskell,javascript,go,sh
+    au FileType python,haskell,javascript
         \ highlight OverLength ctermbg=red ctermfg=white |
         \ match OverLength /\%81v.\+/ |
         \ nnoremap <leader><leader> :cal cursor(0, 80) \| :execute "normal! Bhxi\<lt>CR>"<CR>
@@ -133,11 +126,12 @@ augroup END
 
 augroup comment
     au!
-    au FileType python setlocal commentstring=#\ %s
+    au FileType python,sh,yaml setlocal commentstring=#\ %s
     au FileType haskell setlocal commentstring=--\ %s
     au FileType go,json setlocal commentstring=//\ %s
     au FileType vim setlocal commentstring=\"\ %s
     au FileType html setlocal commentstring=<!--\ %s\ -->
+    au FileType dosini setlocal commentstring=;\ %s
 augroup END
 
 augroup execute

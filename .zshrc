@@ -46,6 +46,8 @@ fpath=("$HOME/.zfunctions" $fpath)
 # ALIASES                 #
 #-------------------------#
 alias ls='ls --color=auto'
+alias tree='tree -C'
+alias grep='grep --color'
 alias 2pdf='wkhtmltopdf -g --disable-javascript --no-background'
 alias k='kubectl'
 alias cfg='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
@@ -67,10 +69,6 @@ mv_untracked() {
     mkdir -p "$1"
 
     git ls-files -z --others --exclude-standard | xargs -0 mv -nt "$1"
-}
-
-update_submodules() {
-    cfg submodule foreach git pull origin master
 }
 
 fnd() {
@@ -96,6 +94,17 @@ ls_hex() {
 
 rm_symlink() {
     [ -L "$1" ] && cp --remove-destination "$(readlink "$1")" "$1"
+}
+
+mk_logo() {
+    local size=$1
+    local input=$2
+    local output=$3
+    convert "$input" -thumbnail "$size>" \
+        -gravity center \
+        -background transparent \
+        -extent "$size" \
+        "$output"
 }
 
 #-------------------------#

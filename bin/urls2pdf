@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-gen_tmp_dir() {
-    echo "/tmp/$(openssl rand -hex 8)"
-}
-
 usage=$(
     cat <<EOF
 Usage: $(basename "$0") [options] [infile]
@@ -54,15 +50,9 @@ elif [[ ! -f "$infile" ]]; then
     exit 1
 fi
 
-# Create a temporary workdir
-tmp_dir="$(gen_tmp_dir)"
-while [[ -d "$tmp_dir" ]]; do
-    tmp_dir="$(gen_tmp_dir)"
-done
-mkdir ${verbose} -p "$tmp_dir"
-
 # Read lines of URLs from the given file or stdin and download them as PDFs
 i=1
+tmp_dir="$(mktemp -d)"
 while IFS= read -r url || [[ -n "$url" ]]; do
     bname="$(basename "$url")"
     fname="${bname%.*}"
@@ -78,4 +68,4 @@ gs -dBATCH -dNOPAUSE ${quiet} \
     "$tmp_dir/"*.pdf
 
 # Remove the workdir
-rm -r ${verbose} "$tmp_dir"
+rm -r "$tmp_dir"
