@@ -54,3 +54,6 @@
 [submodule ".vim/bundle/Stupid-EasyMotion"]
 	path = .vim/bundle/Stupid-EasyMotion
 	url = https://github.com/joequery/Stupid-EasyMotion.git
+[submodule ".vim/bundle/vimwiki"]
+	path = .vim/bundle/vimwiki
+	url = https://github.com/vimwiki/vimwiki

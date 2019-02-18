@@ -15,6 +15,7 @@ set pastetoggle=<F2>                " conveniently turn paste on and off
 set shortmess=a
 hi Error NONE
 hi! def link jsonKeyword Identifier
+filetype plugin on
 
 " Status line
 set statusline=
@@ -106,7 +107,13 @@ let g:ale_sign_warning = '.'
 let g:ale_lint_on_enter = 0
 let g:ale_python_flake8_executable = 'python3'
 
-let g:hardtime_default_on = 1
+" let g:hardtime_default_on = 1
+
+map <C-f> <Leader><Leader>f
+
+let g:vimwiki_list = [{'path': '~/proj/cheatsheets/',
+                       \ 'syntax': 'markdown',
+                       \ 'ext': '.md'}]
 
 augroup detect
     au!
@@ -118,7 +125,7 @@ augroup END
 
 augroup overlength
     au!
-    au FileType python,haskell,javascript
+    au FileType python,haskell,javascript,go
         \ highlight OverLength ctermbg=red ctermfg=white |
         \ match OverLength /\%81v.\+/ |
         \ nnoremap <leader><leader> :cal cursor(0, 80) \| :execute "normal! Bhxi\<lt>CR>"<CR>

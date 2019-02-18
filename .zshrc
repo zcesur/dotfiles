@@ -17,6 +17,7 @@ setopt autocd extendedglob
 # SHELL - CONTROLS        #
 #-------------------------#
 # Vi-style controls
+set -o vi
 bindkey -v
 # Allow v to edit the command line
 zle -N edit-command-line
@@ -40,6 +41,9 @@ exists tmux && [[ -z $TMUX ]] && exec tmux -2 attach
 if [ -f '/usr/local/google-cloud-sdk/path.zsh.inc' ]; then source '/usr/local/google-cloud-sdk/path.zsh.inc'; fi
 if [ -e '/home/cesur/.nix-profile/etc/profile.d/nix.sh' ]; then source '/home/cesur/.nix-profile/etc/profile.d/nix.sh'; fi
 if [ -e '/home/cesur/anaconda2/etc/profile.d/conda.sh' ]; then source '/home/cesur/anaconda2/etc/profile.d/conda.sh'; fi
+
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
+
 fpath=("$HOME/.zfunctions" $fpath)
 
 #-------------------------#
@@ -51,6 +55,8 @@ alias grep='grep --color'
 alias 2pdf='wkhtmltopdf -g --disable-javascript --no-background'
 alias k='kubectl'
 alias cfg='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
+alias parse_arr='jq -r ".[]"'
+alias goserv="goexec 'http.ListenAndServe(\":8080\", http.FileServer(http.Dir(\".\")))'"
 
 #-------------------------#
 # FUNCTIONS               #
@@ -112,6 +118,7 @@ mk_logo() {
 #-------------------------#
 if [ -f '/usr/local/google-cloud-sdk/completion.zsh.inc' ]; then source '/usr/local/google-cloud-sdk/completion.zsh.inc'; fi
 exists kubectl && source <(kubectl completion zsh)
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 #-------------------------#
 # SHELL - PROMPT          #
@@ -120,7 +127,7 @@ autoload -U promptinit
 promptinit
 prompt pure
 PURE_GIT_PULL=0
-PURE_PROMPT_SYMBOL='$'
+PURE_PROMPT_SYMBOL='❯'
 
 #-------------------------#
 # SHELL - HIGHLIGHTING    #

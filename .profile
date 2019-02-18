@@ -4,7 +4,7 @@
 export JAVA_HOME="/usr/local/jdk1.8.0_162"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export GOPATH="$HOME/go"
-export LD_LIBRARY_PATH="/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+
 export                          PATH="$PATH:$HOME/bin:$HOME/.local/bin"
 [ -d "$HOME/.npm-global" ]   && PATH="$PATH:$HOME/.npm-global/bin"
 [ -d "$HOME/.cargo" ]        && PATH="$PATH:$HOME/.cargo/bin"
@@ -22,6 +22,7 @@ export                          PATH="$PATH:$HOME/bin:$HOME/.local/bin"
 # APPLICATIONS            #
 #-------------------------#
 export EDITOR='vim'
+export SYSTEMD_EDITOR="$(which vim)"
 
 #-------------------------#
 # CREDENTIALS             #

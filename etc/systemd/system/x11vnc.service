@@ -1,0 +1,14 @@
+[Unit]
+Description=VNC Server for X11
+Requires=display-manager.service
+After=display-manager.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/x11vnc -display :0 -auth /run/user/1000/gdm/Xauthority -rfbauth /etc/x11vnc.pwd -forever -o /var/log/x11vnc.log
+ExecStop=/usr/bin/x11vnc -R stop -display :0 -auth /run/user/1000/gdm/Xauthority
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=graphical.target
