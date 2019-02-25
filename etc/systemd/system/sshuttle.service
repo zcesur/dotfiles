@@ -1,0 +1,15 @@
+[Unit]
+Description=sshuttle
+Requires=network.target
+After=network.target
+
+[Service]
+Type=forking
+EnvironmentFile=/etc/sshuttle.conf
+ExecStart=/usr/bin/sshuttle -D --pidfile=/var/run/sshuttle.pid -e 'ssh -i /home/cesur/.ssh/tunnel' --dns -r ${USER}@${HOST} 0/0
+PIDFile=/var/run/sshuttle.pid
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
