@@ -6,29 +6,18 @@ exists() {
 }
 
 #-------------------------#
-# SHELL - OPTIONS         #
+# ALIASES                 #
 #-------------------------#
-HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
-setopt autocd extendedglob
-
-#-------------------------#
-# SHELL - CONTROLS        #
-#-------------------------#
-# Vi-style controls
-set -o vi
-bindkey -v
-# Allow v to edit the command line
-zle -N edit-command-line
-autoload -Uz edit-command-line
-bindkey -M vicmd 'v' edit-command-line
-# Enable backspace
-bindkey '^?' backward-delete-char
-export KEYTIMEOUT=1
-# Search through the history for lines beginning with the content in the buffer
-bindkey '^[OA' history-beginning-search-backward
-bindkey '^[OB' history-beginning-search-forward
+alias ls='ls --color=auto'
+alias tree='tree -C'
+alias grep='grep --color'
+alias 2pdf='wkhtmltopdf -g --disable-javascript --no-background'
+alias k='kubectl'
+alias cfg='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
+alias parse_arr='jq -r ".[]"'
+alias goserv="goexec 'http.ListenAndServe(\":8080\", http.FileServer(http.Dir(\".\")))'"
+alias algora_yellow='echo "#e0ae4a"'
+alias algora_purple='echo "#652d90"'
 
 #-------------------------#
 # TMUX                    #
@@ -47,23 +36,10 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 fpath=("$HOME/.zfunctions" $fpath)
 
 #-------------------------#
-# ALIASES                 #
-#-------------------------#
-alias ls='ls --color=auto'
-alias tree='tree -C'
-alias grep='grep --color'
-alias 2pdf='wkhtmltopdf -g --disable-javascript --no-background'
-alias k='kubectl'
-alias cfg='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
-alias parse_arr='jq -r ".[]"'
-alias goserv="goexec 'http.ListenAndServe(\":8080\", http.FileServer(http.Dir(\".\")))'"
-
-#-------------------------#
 # FUNCTIONS               #
 #-------------------------#
 fix_audio() {
     rm -r ~/.config/pulse/*
-    rm -r ~/.pulse
     pulseaudio -k
 }
 
@@ -103,15 +79,51 @@ rm_symlink() {
 }
 
 mk_logo() {
-    local size=$1
-    local input=$2
-    local output=$3
-    convert "$input" -thumbnail "$size>" \
+    local size="$1"
+    local input="$2"
+    local output="$3"
+    convert "$input" \
+        -thumbnail "$size>" \
         -gravity center \
         -background transparent \
         -extent "$size" \
         "$output"
 }
+
+mk_pdf() {
+    local size="$1"
+    local input="$2"
+    local output="$3"
+    convert "$input" \
+        -resize "$size>" \
+        -gravity center \
+        "$output"
+}
+
+#-------------------------#
+# SHELL - OPTIONS         #
+#-------------------------#
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+setopt autocd extendedglob
+
+#-------------------------#
+# SHELL - CONTROLS        #
+#-------------------------#
+# Vi-style controls
+set -o vi
+bindkey -v
+# Allow v to edit the command line
+zle -N edit-command-line
+autoload -Uz edit-command-line
+bindkey -M vicmd 'v' edit-command-line
+# Enable backspace
+bindkey '^?' backward-delete-char
+export KEYTIMEOUT=1
+# Search through the history for lines beginning with the content in the buffer
+bindkey '^[OA' history-beginning-search-backward
+bindkey '^[OB' history-beginning-search-forward
 
 #-------------------------#
 # SHELL - COMPLETION      #

@@ -5,7 +5,7 @@ export JAVA_HOME="/usr/local/jdk1.8.0_162"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export GOPATH="$HOME/go"
 
-export                          PATH="$PATH:$HOME/bin:$HOME/.local/bin"
+export                          PATH="$PATH:$HOME/.local/bin"
 [ -d "$HOME/.npm-global" ]   && PATH="$PATH:$HOME/.npm-global/bin"
 [ -d "$HOME/.cargo" ]        && PATH="$PATH:$HOME/.cargo/bin"
 [ -d "$HOME/anaconda2" ]     && PATH="$HOME/anaconda2/bin:$PATH"
@@ -23,8 +23,4 @@ export                          PATH="$PATH:$HOME/bin:$HOME/.local/bin"
 #-------------------------#
 export EDITOR='vim'
 export SYSTEMD_EDITOR="$(which vim)"
-
-#-------------------------#
-# CREDENTIALS             #
-#-------------------------#
-export GOOGLE_APPLICATION_CREDENTIALS="$HOME/proj/cloud-client/key.json"
+export SUDO_EDITOR='vim'
