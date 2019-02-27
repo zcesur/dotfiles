@@ -11,6 +11,7 @@ exists() {
 alias ls='ls --color=auto'
 alias tree='tree -C'
 alias grep='grep --color'
+alias rsync='rsync_safe'
 alias 2pdf='wkhtmltopdf -g --disable-javascript --no-background'
 alias k='kubectl'
 alias cfg='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
@@ -98,6 +99,10 @@ mk_pdf() {
         -resize "$size>" \
         -gravity center \
         "$output"
+}
+
+dirsum() {
+    (cd "$1" && find . -type f -exec md5sum {} \; | sort -k 2 | md5sum)
 }
 
 #-------------------------#

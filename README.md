@@ -1,10 +1,13 @@
 #### `root@host:/#`
 ```sh
-apt-get update && apt-get install -y git zsh tmux vim curl
+apt-get update && apt-get install -y git zsh tmux vim curl ufw
 
 user='cesur'
 adduser --shell /bin/zsh $user
 adduser $user sudo
+
+ufw allow 22/tcp
+ufw enable
 ```
 #### `user@host:~$`
 ```sh
