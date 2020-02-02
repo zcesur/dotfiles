@@ -1,6 +1,5 @@
 " Main config
 filetype off
-execute pathogen#infect()
 syntax enable                       " enable syntax processing
 colorscheme Tomorrow-Night-Eighties
 set backspace=indent,eol,start
