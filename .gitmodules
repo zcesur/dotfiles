@@ -10,9 +10,6 @@
 [submodule ".config/fish/plugins/google-cloud-sdk-fish-completion"]
     path = .config/fish/plugins/google-cloud-sdk-fish-completion
     url = git@github.com:aliz-ai/google-cloud-sdk-fish-completion.git
-[submodule ".config/fish/plugins/fish-history-merge"]
-    path = .config/fish/plugins/fish-history-merge
-    url = git@github.com:2m/fish-history-merge.git
 
 # Vim
 [submodule ".vim/pack/plugins/start/vim-commentary"]
