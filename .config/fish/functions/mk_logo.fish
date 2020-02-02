@@ -3,12 +3,12 @@ function mk_logo
     set -l input $argv[2]
     set -l output $argv[3]
 
-    convert "$input" \
-    -thumbnail "$size>" \
+    convert $input \
+    -thumbnail "$size"> \
     -gravity center \
     -background transparent \
-    -extent "$size" \
-    "$output"
+    -extent $size \
+    $output
 
 end
 

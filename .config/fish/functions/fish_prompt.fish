@@ -7,7 +7,7 @@ function fish_prompt --description 'Write out the prompt'
     
     set -g __fish_git_prompt_showupstream "git"
 
-    set -g __fish_git_prompt_char_stateseparator ''
+    set -g __fish_git_prompt_char_stateseparator ""
     set -g __fish_git_prompt_char_stagedstate ""
     set -g __fish_git_prompt_char_dirtystate ""
     set -g __fish_git_prompt_char_untrackedfiles ""
@@ -60,19 +60,13 @@ function fish_prompt --description 'Write out the prompt'
     set -l suffix
     switch "$USER"
         case root toor
-            if set -q fish_color_cwd_root
-                set color_cwd $fish_color_cwd_root
-            else
-                set color_cwd $fish_color_cwd
-            end
             set suffix '#'
         case '*'
-            set color_cwd $fish_color_cwd
-            set suffix '$'
+            set suffix '❯'
     end
 
     # PWD
-    set_color $color_cwd
+    set_color cyan
     echo -n (prompt_pwd)
     set_color normal
 

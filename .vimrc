@@ -1,4 +1,5 @@
 " Main config
+filetype off
 execute pathogen#infect()
 syntax enable                       " enable syntax processing
 colorscheme Tomorrow-Night-Eighties
@@ -16,6 +17,11 @@ set shortmess=a
 hi Error NONE
 hi! def link jsonKeyword Identifier
 filetype plugin on
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+highlight LineNr                ctermfg=8
 
 " Status line
 set statusline=
@@ -44,7 +50,7 @@ set softtabstop=4
 set shiftwidth=4
 set smarttab
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-au Filetype javascript,json,css,scss,yaml,htmldjango setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+au Filetype haskell,xml,java,json,javascript.jsx,typescript,css,scss,yaml,htmldjango setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 au Filetype vim let g:vim_indent_cont = &sw
 
 " Slimux config
@@ -81,14 +87,14 @@ let g:user_emmet_settings = {
 let g:ale_set_highlights = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
+nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
 nnoremap <S-t> :ALEFix<CR>
 let g:ale_linters = {
 \   'haskell': ['ghc-mod', 'hlint'],
 \   'python': ['flake8'],
 \   'javascript': ['eslint'],
-\   'typescript': ['tslint'],
+\   'typescript': ['eslint'],
 \   'go': ['gometalinter', 'gofmt'],
 \   'sh': ['shellcheck']
 \}
@@ -96,9 +102,11 @@ let g:ale_fixers = {
 \   'haskell': ['hlint'],
 \   'python': ['yapf'],
 \   'javascript': ['eslint'],
-\   'typescript': ['tslint'],
+\   'typescript': ['eslint'],
 \   'go': ['gofmt'],
 \   'css': ['prettier'],
+\   'less': ['prettier'],
+\   'svg': ['tidy'],
 \   'json': ['prettier', 'jq'],
 \   'sh': ['shfmt']
 \}
@@ -117,7 +125,11 @@ let g:vimwiki_list = [{'path': '~/proj/cheatsheets/',
 
 augroup detect
     au!
+    au BufEnter,BufRead,BufNewFile *.md set filetype=markdown
     au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+    au BufNewFile,BufFilePre,BufRead *.tmpl
+        \ set filetype=gohtmltmpl |
+        \ set noet ci pi sts=0 sw=4 ts=4
     au BufNewFile,BufFilePre,BufRead Dockerfile* set filetype=dockerfile
     au BufNewFile,BufFilePre,BufRead .zshrc set filetype=sh
     au FileType javascript let g:jsx_ext_required = 0
@@ -125,7 +137,7 @@ augroup END
 
 augroup overlength
     au!
-    au FileType python,haskell,javascript
+    au FileType haskell
         \ highlight OverLength ctermbg=red ctermfg=white |
         \ match OverLength /\%81v.\+/ |
         \ nnoremap <leader><leader> :cal cursor(0, 80) \| :execute "normal! Bhxi\<lt>CR>"<CR>
@@ -150,8 +162,8 @@ augroup execute
     au FileType sh let b:exec = 'bash'
     au FileType perl let b:exec = 'perl'
     au FileType python,go,haskell,javascript,sh,perl
-        \ map <buffer> <S-e> :w<CR>:echo system(b:exec . " " . expand("%"))<CR>
+        \ noremap <buffer> <S-e> :w<CR>:echo system(b:exec . " " . expand("%"))<CR>
 
     au FileType markdown let b:dispatch = 'grip % -b' |
-        \ map <buffer> <S-e> :Dispatch<CR>
+        \ noremap <buffer> <S-e> :Dispatch<CR>
 augroup END

@@ -1,0 +1,1 @@
+../plugins/google-cloud-sdk-fish-completion/completions/gcloud.fish
