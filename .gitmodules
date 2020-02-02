@@ -3,13 +3,13 @@
     path = .tmux/plugins/tmux-resurrect
     url = https://github.com/tmux-plugins/tmux-resurrect
 
-# Zsh
-[submodule ".plugins/pure"]
-    path = .plugins/pure
-    url = https://github.com/sindresorhus/pure
-[submodule ".plugins/zsh-syntax-highlighting"]
-    path = .plugins/zsh-syntax-highlighting
-    url = https://github.com/zsh-users/zsh-syntax-highlighting
+# Fish
+[submodule ".config/fish/plugins/fish-kubectl-completions"]
+	path = .config/fish/plugins/fish-kubectl-completions
+	url = git@github.com:evanlucas/fish-kubectl-completions.git
+[submodule ".config/fish/plugins/google-cloud-sdk-fish-completion"]
+	path = .config/fish/plugins/google-cloud-sdk-fish-completion
+	url = git@github.com:aliz-ai/google-cloud-sdk-fish-completion.git
 
 # Vim
 [submodule ".vim/bundle/vim-commentary"]
