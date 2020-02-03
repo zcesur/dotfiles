@@ -26,7 +26,7 @@
 	url = git@github.com:tpope/vim-dispatch.git
 [submodule ".vim/pack/plugins/start/ale"]
 	path = .vim/pack/plugins/start/ale
-	url = git@github.com:w0rp/ale.git
+	url = git@github.com:dense-analysis/ale.git
 [submodule ".vim/pack/plugins/start/slimux"]
 	path = .vim/pack/plugins/start/slimux
 	url = git@github.com:epeli/slimux.git
@@ -51,9 +51,6 @@
 [submodule ".vim/pack/plugins/start/vim-hardtime"]
 	path = .vim/pack/plugins/start/vim-hardtime
 	url = git@github.com:takac/vim-hardtime.git
-[submodule ".vim/pack/plugins/start/Stupid-EasyMotion"]
-	path = .vim/pack/plugins/start/Stupid-EasyMotion
-	url = git@github.com:joequery/Stupid-EasyMotion.git
 [submodule ".vim/pack/plugins/start/vimwiki"]
 	path = .vim/pack/plugins/start/vimwiki
 	url = git@github.com:vimwiki/vimwiki.git
@@ -66,3 +63,6 @@
 [submodule ".vim/pack/plugins/start/vim-vue"]
 	path = .vim/pack/plugins/start/vim-vue
 	url = git@github.com:posva/vim-vue.git
+[submodule ".vim/pack/plugins/start/vim-easymotion"]
+	path = .vim/pack/plugins/start/vim-easymotion
+	url = git@github.com:easymotion/vim-easymotion.git

@@ -13,14 +13,16 @@ set hlsearch                        " highlight matches
 set mouse=a                         " mouse functionality
 set pastetoggle=<F2>                " conveniently turn paste on and off
 set shortmess=a
+filetype plugin on
+
+" Highlighting
+hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+hi DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+hi DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+hi LineNr                ctermfg=8
 hi Error NONE
 hi! def link jsonKeyword Identifier
-filetype plugin on
-highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-highlight LineNr                ctermfg=8
 
 " Status line
 set statusline=
@@ -52,86 +54,87 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 au Filetype haskell,xml,java,json,javascript.jsx,typescript,css,scss,yaml,htmldjango setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 au Filetype vim let g:vim_indent_cont = &sw
 
-" Slimux config
+" Misc. mappings
+nnoremap <Leader><Space> :noh<CR>
+xnoremap p pgvy
+nnoremap <Space> @q
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+
+" Abbreviations
+cnoreabbrev W w
+cnoreabbrev W! w!
+cnoreabbrev Q q
+cnoreabbrev Q! q!
+cnoreabbrev Wq wq
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+
+" slimux config
 nnoremap <C-c><C-c> :SlimuxREPLSendLine<CR>
 vnoremap <C-c><C-c> :SlimuxREPLSendSelection<CR>
 nnoremap <C-c><C-v> :SlimuxREPLConfigure<CR>
 let g:slimux_select_from_current_window = 1
 
-" Misc. mappings & abbreviations
-nnoremap <leader><space> :noh<CR>
-xnoremap p pgvy 
-noremap % v%
-nnoremap <Space> @q
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
-
-" HTML/JSX tab completion
+" emmet-vim config
 let g:user_emmet_leader_key='<Tab>'
-let g:user_emmet_settings = {
-  \  'javascript.jsx' : {
-    \      'extends' : 'jsx',
-    \  },
-  \}
 
-" ALE config
+" ale config
+nnoremap <silent> <C-j> :ALENext<cr>
+nnoremap <silent> <C-k> :ALEPrevious<cr>
+nnoremap <S-t> :ALEFix<CR>
 let g:ale_set_highlights = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
-nnoremap <silent> <C-k> <Plug>(ale_previous_wrap)
-nnoremap <silent> <C-j> <Plug>(ale_next_wrap)
-nnoremap <S-t> :ALEFix<CR>
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
+let g:ale_go_golangci_lint_options = '--fast'
 let g:ale_linters = {
-\   'haskell': ['ghc-mod', 'hlint'],
-\   'python': ['flake8'],
+\   'go': ['golangci-lint'],
+\   'sh': ['shellcheck'],
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
-\   'go': ['gometalinter', 'gofmt'],
-\   'sh': ['shellcheck']
 \}
 let g:ale_fixers = {
-\   'haskell': ['hlint'],
-\   'python': ['yapf'],
+\   'go': ['gofmt'],
+\   'sh': ['shfmt'],
 \   'javascript': ['eslint'],
 \   'typescript': ['eslint'],
-\   'go': ['gofmt'],
 \   'css': ['prettier'],
 \   'less': ['prettier'],
 \   'svg': ['tidy'],
 \   'json': ['prettier', 'jq'],
-\   'sh': ['shfmt']
 \}
-let g:ale_sign_error = '●'
-let g:ale_sign_warning = '.'
-let g:ale_lint_on_enter = 0
-let g:ale_python_flake8_executable = 'python3'
 
-" let g:hardtime_default_on = 1
+" vim-go config
+let g:go_fmt_fail_silently = 1
+let g:go_highlight_diagnostic_errors=0
+let g:go_highlight_diagnostic_warnings=0
 
-map <C-f> <Leader><Leader>f
+" vim-jsx config
+let g:jsx_ext_required = 0
 
-let g:vimwiki_list = [{'path': '~/proj/cheatsheets/',
-                       \ 'syntax': 'markdown',
-                       \ 'ext': '.md'}]
+" vim-easymotion config
+map <Leader>f <Plug>(easymotion-fl)
+map <Leader>F <Plug>(easymotion-Fl)
+map <Leader>t <Plug>(easymotion-tl)
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+
+" vimwiki config
+let g:vimwiki_list = [{'path': '~/proj/cheatsheets/', 'syntax': 'markdown', 'ext': '.md'}]
+
+" vim-hardtime config
+let g:hardtime_default_on = 1
 
 augroup detect
     au!
     au BufEnter,BufRead,BufNewFile *.md set filetype=markdown
     au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-    au BufNewFile,BufFilePre,BufRead *.tmpl
-        \ set filetype=gohtmltmpl |
+    au BufNewFile,BufFilePre,BufRead *.tmpl set filetype=gohtmltmpl |
         \ set noet ci pi sts=0 sw=4 ts=4
     au BufNewFile,BufFilePre,BufRead Dockerfile* set filetype=dockerfile
-    au BufNewFile,BufFilePre,BufRead .zshrc set filetype=sh
-    au FileType javascript let g:jsx_ext_required = 0
 augroup END
 
 augroup overlength
@@ -139,7 +142,7 @@ augroup overlength
     au FileType haskell
         \ highlight OverLength ctermbg=red ctermfg=white |
         \ match OverLength /\%81v.\+/ |
-        \ nnoremap <leader><leader> :cal cursor(0, 80) \| :execute "normal! Bhxi\<lt>CR>"<CR>
+        \ nnoremap <Leader><Leader> :cal cursor(0, 80) \| :execute "normal! Bhxi\<lt>CR>"<CR>
 augroup END
 
 augroup comment
@@ -161,8 +164,8 @@ augroup execute
     au FileType sh let b:exec = 'bash'
     au FileType perl let b:exec = 'perl'
     au FileType python,go,haskell,javascript,sh,perl
-        \ noremap <buffer> <S-e> :w<CR>:echo system(b:exec . " " . expand("%"))<CR>
+        \ noremap <buffer> <Leader>r :w<CR>:echo system(b:exec . " " . expand("%"))<CR>
 
     au FileType markdown let b:dispatch = 'grip % -b' |
-        \ noremap <buffer> <S-e> :Dispatch<CR>
+        \ noremap <buffer> <Leader>r :Dispatch<CR>
 augroup END
