@@ -5,6 +5,7 @@ SETUVAR __fish_init_2_3_0:\x1d
 SETUVAR __fish_init_3_x:\x1d
 SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr_a:\x2e/algora\x20web\x20\x7c\x20grep\x20\x2dv\x20\x22\x5e\x5c\x5bMacaron\x5c\x5d\x22
+SETUVAR _fish_abbr_cp:cp\x20\x2di
 SETUVAR _fish_abbr_g:git
 SETUVAR _fish_abbr_ga:git\x20add
 SETUVAR _fish_abbr_gc:git\x20commit\x20\x2dm
@@ -17,6 +18,7 @@ SETUVAR _fish_abbr_gp:git\x20push
 SETUVAR _fish_abbr_gpf:git\x20push\x20\x2d\x2dforce\x2dwith\x2dlease
 SETUVAR _fish_abbr_gpl:git\x20pull
 SETUVAR _fish_abbr_gr:git\x20rebase\x20\x2di
+SETUVAR _fish_abbr_grc:git\x20rebase\x20\x2d\x2dcontinue
 SETUVAR _fish_abbr_gs:git\x20status
 SETUVAR _fish_abbr_h:hugo\x20server\x20\x2d\x2dminify
 SETUVAR _fish_abbr_k:kubectl
@@ -37,8 +39,11 @@ SETUVAR _fish_abbr_m:make
 SETUVAR _fish_abbr_mb:make\x20build
 SETUVAR _fish_abbr_mc:make\x20css
 SETUVAR _fish_abbr_mj:make\x20js
+SETUVAR _fish_abbr_mv:mv\x20\x2di
 SETUVAR _fish_abbr_n:npm
 SETUVAR _fish_abbr_s:sudo
+SETUVAR _fish_abbr_sys:systemctl
+SETUVAR _fish_abbr_sysu:systemctl\x20\x2d\x2duser
 SETUVAR _fish_abbr_v:vim
 SETUVAR _fish_abbr_y:yarn
 SETUVAR fish_color_autosuggestion:969896

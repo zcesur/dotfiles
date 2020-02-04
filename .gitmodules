@@ -51,9 +51,6 @@
 [submodule ".vim/pack/plugins/start/vim-hardtime"]
 	path = .vim/pack/plugins/start/vim-hardtime
 	url = git@github.com:takac/vim-hardtime.git
-[submodule ".vim/pack/plugins/start/vimwiki"]
-	path = .vim/pack/plugins/start/vimwiki
-	url = git@github.com:vimwiki/vimwiki.git
 [submodule ".vim/pack/plugins/start/vim-fish"]
 	path = .vim/pack/plugins/start/vim-fish
 	url = git@github.com:dag/vim-fish.git
@@ -66,3 +63,9 @@
 [submodule ".vim/pack/plugins/start/vim-easymotion"]
 	path = .vim/pack/plugins/start/vim-easymotion
 	url = git@github.com:easymotion/vim-easymotion.git
+[submodule ".vim/pack/plugins/start/nerdtree"]
+	path = .vim/pack/plugins/start/nerdtree
+	url = git@github.com:preservim/nerdtree.git
+[submodule ".vim/pack/plugins/start/vim-markdown"]
+	path = .vim/pack/plugins/start/vim-markdown
+	url = git@github.com:plasticboy/vim-markdown.git

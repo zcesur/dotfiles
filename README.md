@@ -26,13 +26,6 @@ cfg config status.showUntrackedFiles no
 ```
 
 ```fish
-# Link systemd units
-for unit in ~/etc/systemd/system/*.service
-    sudo systemctl link $unit
-end
-```
-
-```fish
 # Link binaries
 for bin in ~/bin/*
     sudo ln -s $bin /usr/local/bin/(basename $bin)

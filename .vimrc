@@ -83,13 +83,14 @@ let g:user_emmet_leader_key='<Tab>'
 " ale config
 nnoremap <silent> <C-j> :ALENext<cr>
 nnoremap <silent> <C-k> :ALEPrevious<cr>
-nnoremap <S-t> :ALEFix<CR>
+nnoremap <C-f> :ALEFix<CR>
 let g:ale_set_highlights = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
 let g:ale_go_golangci_lint_options = '--fast'
+let g:ale_go_golangci_lint_package = 1
 let g:ale_linters = {
 \   'go': ['golangci-lint'],
 \   'sh': ['shellcheck'],
@@ -119,14 +120,24 @@ let g:jsx_ext_required = 0
 map <Leader>f <Plug>(easymotion-fl)
 map <Leader>F <Plug>(easymotion-Fl)
 map <Leader>t <Plug>(easymotion-tl)
+map <Leader>T <Plug>(easymotion-Tl)
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 
-" vimwiki config
-let g:vimwiki_list = [{'path': '~/proj/cheatsheets/', 'syntax': 'markdown', 'ext': '.md'}]
+" NERDTree config
+map <C-n> :NERDTreeToggle<CR>
+" open automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
 " vim-hardtime config
 let g:hardtime_default_on = 1
+let g:hardtime_timeout = 500
+
+
+" vim-markdown config
+let g:vim_markdown_folding_disabled = 1
+map <C-t> :TableFormat<CR>
 
 augroup detect
     au!

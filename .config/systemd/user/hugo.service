@@ -1,0 +1,10 @@
+[Unit]
+Description=Hugo server
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/local/bin/hugo server --minify --source /home/cesur/proj/knowledge
+ExecStop=/bin/kill -s QUIT $MAINPID
+
+[Install]
+WantedBy=multi-user.target
