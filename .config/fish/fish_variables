@@ -46,6 +46,10 @@ SETUVAR _fish_abbr_sys:systemctl
 SETUVAR _fish_abbr_sysu:systemctl\x20\x2d\x2duser
 SETUVAR _fish_abbr_v:vim
 SETUVAR _fish_abbr_y:yarn
+SETUVAR _fish_abbr_yb:yarn\x20build
+SETUVAR _fish_abbr_yl:yarn\x20lint
+SETUVAR _fish_abbr_ys:yarn\x20start
+SETUVAR _fish_abbr_yt:yarn\x20tsc
 SETUVAR fish_color_autosuggestion:969896
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:c397d8
