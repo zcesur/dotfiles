@@ -11,7 +11,7 @@
     path = .config/fish/plugins/google-cloud-sdk-fish-completion
     url = git@github.com:aliz-ai/google-cloud-sdk-fish-completion.git
 
-# Vim
+# Vim - General purpose
 [submodule ".vim/pack/plugins/start/vim-commentary"]
 	path = .vim/pack/plugins/start/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
@@ -21,9 +21,6 @@
 [submodule ".vim/pack/plugins/start/vim-repeat"]
 	path = .vim/pack/plugins/start/vim-repeat
 	url = git@github.com:tpope/vim-repeat.git
-[submodule ".vim/pack/plugins/start/vim-dispatch"]
-	path = .vim/pack/plugins/start/vim-dispatch
-	url = git@github.com:tpope/vim-dispatch.git
 [submodule ".vim/pack/plugins/start/slimux"]
 	path = .vim/pack/plugins/start/slimux
 	url = git@github.com:epeli/slimux.git
@@ -32,40 +29,33 @@
 	url = git@github.com:mattn/emmet-vim.git
 [submodule ".vim/pack/plugins/start/tabular"]
 	path = .vim/pack/plugins/start/tabular
-	url = git@github.com:godlygeek/tabular.git
-[submodule ".vim/pack/plugins/start/vim-javascript"]
-	path = .vim/pack/plugins/start/vim-javascript
-	url = git@github.com:pangloss/vim-javascript.git
-[submodule ".vim/pack/plugins/start/vim-jsx"]
-	path = .vim/pack/plugins/start/vim-jsx
-	url = git@github.com:mxw/vim-jsx.git
-[submodule ".vim/pack/plugins/start/vim-json"]
-	path = .vim/pack/plugins/start/vim-json
-	url = git@github.com:elzr/vim-json.git
-[submodule ".vim/pack/plugins/start/vim-hardtime"]
-	path = .vim/pack/plugins/start/vim-hardtime
-	url = git@github.com:takac/vim-hardtime.git
-[submodule ".vim/pack/plugins/start/vim-fish"]
-	path = .vim/pack/plugins/start/vim-fish
-	url = git@github.com:dag/vim-fish.git
-[submodule ".vim/pack/plugins/start/vim-go"]
-	path = .vim/pack/plugins/start/vim-go
-	url = git@github.com:fatih/vim-go.git
-[submodule ".vim/pack/plugins/start/vim-vue"]
-	path = .vim/pack/plugins/start/vim-vue
-	url = git@github.com:posva/vim-vue.git
+    url = git@github.com:godlygeek/tabular.git
 [submodule ".vim/pack/plugins/start/vim-easymotion"]
 	path = .vim/pack/plugins/start/vim-easymotion
 	url = git@github.com:easymotion/vim-easymotion.git
 [submodule ".vim/pack/plugins/start/nerdtree"]
 	path = .vim/pack/plugins/start/nerdtree
 	url = git@github.com:preservim/nerdtree.git
+[submodule ".vim/pack/plugins/start/coc.nvim"]
+	path = .vim/pack/plugins/start/coc.nvim
+	url = git@github.com:neoclide/coc.nvim.git
+
+# Vim - Language specific
+[submodule ".vim/pack/plugins/start/vim-json"]
+	path = .vim/pack/plugins/start/vim-json
+	url = git@github.com:elzr/vim-json.git
+[submodule ".vim/pack/plugins/start/vim-fish"]
+	path = .vim/pack/plugins/start/vim-fish
+	url = git@github.com:dag/vim-fish.git
+[submodule ".vim/pack/plugins/start/vim-go"]
+	path = .vim/pack/plugins/start/vim-go
+	url = git@github.com:fatih/vim-go.git
 [submodule ".vim/pack/plugins/start/vim-markdown"]
 	path = .vim/pack/plugins/start/vim-markdown
 	url = git@github.com:plasticboy/vim-markdown.git
 [submodule ".vim/pack/plugins/start/yats.vim"]
 	path = .vim/pack/plugins/start/yats.vim
 	url = git@github.com:HerringtonDarkholme/yats.vim.git
-[submodule ".vim/pack/plugins/start/coc.nvim"]
-	path = .vim/pack/plugins/start/coc.nvim
-	url = git@github.com:neoclide/coc.nvim.git
+[submodule ".vim/pack/plugins/start/elm-vim"]
+	path = .vim/pack/plugins/start/elm-vim
+	url = git@github.com:ElmCast/elm-vim.git

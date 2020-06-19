@@ -101,11 +101,6 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
-" vim-hardtime config
-let g:hardtime_default_on = 1
-let g:hardtime_timeout = 500
-
-
 " vim-markdown config
 let g:vim_markdown_folding_disabled = 1
 map <C-t> :TableFormat<CR>
@@ -119,14 +114,6 @@ augroup detect
     au BufNewFile,BufFilePre,BufRead Dockerfile* set filetype=dockerfile
 augroup END
 
-augroup overlength
-    au!
-    au FileType haskell
-        \ highlight OverLength ctermbg=red ctermfg=white |
-        \ match OverLength /\%81v.\+/ |
-        \ nnoremap <Leader><Leader> :cal cursor(0, 80) \| :execute "normal! Bhxi\<lt>CR>"<CR>
-augroup END
-
 augroup comment
     au!
     au FileType python,sh,yaml setlocal commentstring=#\ %s
@@ -135,21 +122,6 @@ augroup comment
     au FileType vim setlocal commentstring=\"\ %s
     au FileType html setlocal commentstring=<!--\ %s\ -->
     au FileType dosini setlocal commentstring=;\ %s
-augroup END
-
-augroup execute
-    au!
-    au FileType python let b:exec = 'python3'
-    au FileType go let b:exec = 'go run'
-    au FileType haskell let b:exec = 'runhaskell'
-    au FileType javascript let b:exec = 'babel-node'
-    au FileType sh let b:exec = 'bash'
-    au FileType perl let b:exec = 'perl'
-    au FileType python,go,haskell,javascript,sh,perl
-        \ noremap <buffer> <Leader>r :w<CR>:echo system(b:exec . " " . expand("%"))<CR>
-
-    au FileType markdown let b:dispatch = 'grip % -b' |
-        \ noremap <buffer> <Leader>r :Dispatch<CR>
 augroup END
 
 " coc config
