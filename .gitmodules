@@ -24,9 +24,6 @@
 [submodule ".vim/pack/plugins/start/vim-dispatch"]
 	path = .vim/pack/plugins/start/vim-dispatch
 	url = git@github.com:tpope/vim-dispatch.git
-[submodule ".vim/pack/plugins/start/ale"]
-	path = .vim/pack/plugins/start/ale
-	url = git@github.com:dense-analysis/ale.git
 [submodule ".vim/pack/plugins/start/slimux"]
 	path = .vim/pack/plugins/start/slimux
 	url = git@github.com:epeli/slimux.git
@@ -69,3 +66,6 @@
 [submodule ".vim/pack/plugins/start/vim-markdown"]
 	path = .vim/pack/plugins/start/vim-markdown
 	url = git@github.com:plasticboy/vim-markdown.git
+[submodule ".vim/pack/plugins/start/coc.nvim"]
+	path = .vim/pack/plugins/start/coc.nvim
+	url = git@github.com:neoclide/coc.nvim.git
