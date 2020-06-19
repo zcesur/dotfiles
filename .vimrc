@@ -51,7 +51,7 @@ set softtabstop=4
 set shiftwidth=4
 set smarttab
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-au Filetype haskell,xml,java,json,javascript.jsx,typescript,css,scss,yaml,htmldjango setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+au Filetype haskell,typescript,typescriptreact,java,css,scss,yaml,htmldjango setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 au Filetype vim let g:vim_indent_cont = &sw
 
 " Misc. mappings
@@ -82,8 +82,10 @@ let g:go_fmt_fail_silently = 1
 let g:go_highlight_diagnostic_errors=0
 let g:go_highlight_diagnostic_warnings=0
 
-" vim-jsx config
-let g:jsx_ext_required = 0
+" yats.vim config
+hi link tsxTag tsxTagName
+hi link tsxCloseTag tsxTagName
+hi link tsxCloseString tsxTagName
 
 " vim-easymotion config
 map <Leader>f <Plug>(easymotion-fl)
@@ -129,7 +131,7 @@ augroup comment
     au!
     au FileType python,sh,yaml setlocal commentstring=#\ %s
     au FileType haskell setlocal commentstring=--\ %s
-    au FileType go,json setlocal commentstring=//\ %s
+    au FileType go,json,typescriptreact setlocal commentstring=//\ %s
     au FileType vim setlocal commentstring=\"\ %s
     au FileType html setlocal commentstring=<!--\ %s\ -->
     au FileType dosini setlocal commentstring=;\ %s

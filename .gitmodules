@@ -39,9 +39,6 @@
 [submodule ".vim/pack/plugins/start/vim-jsx"]
 	path = .vim/pack/plugins/start/vim-jsx
 	url = git@github.com:mxw/vim-jsx.git
-[submodule ".vim/pack/plugins/start/typescript-vim"]
-	path = .vim/pack/plugins/start/typescript-vim
-	url = git@github.com:leafgarland/typescript-vim.git
 [submodule ".vim/pack/plugins/start/vim-json"]
 	path = .vim/pack/plugins/start/vim-json
 	url = git@github.com:elzr/vim-json.git
@@ -66,6 +63,9 @@
 [submodule ".vim/pack/plugins/start/vim-markdown"]
 	path = .vim/pack/plugins/start/vim-markdown
 	url = git@github.com:plasticboy/vim-markdown.git
+[submodule ".vim/pack/plugins/start/yats.vim"]
+	path = .vim/pack/plugins/start/yats.vim
+	url = git@github.com:HerringtonDarkholme/yats.vim.git
 [submodule ".vim/pack/plugins/start/coc.nvim"]
 	path = .vim/pack/plugins/start/coc.nvim
 	url = git@github.com:neoclide/coc.nvim.git
