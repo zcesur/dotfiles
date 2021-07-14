@@ -126,6 +126,11 @@ augroup END
 
 " coc config
 let g:coc_disable_startup_warning = 1
+" let g:coc_start_at_startup = 0
+augroup coc
+    au!
+    au FileType go :call coc#rpc#stop()
+augroup END
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -188,3 +193,43 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Format code
+" nnoremap <silent><nowait> <space>f :call CocAction('format')<CR>
+nnoremap <silent><nowait> <space>f :Neoformat<CR>
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Start coc.
+nnoremap <silent><nowait> <space>s  :<C-u>CocStart<cr>
+
+" Identify the syntax highlighting group used at the cursor
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+let g:neoformat_enabled_haskell = ['brittany', 'stylishhaskell']
+let g:neoformat_enabled_json = ['prettier']
+let g:neoformat_run_all_formatters = 1
+
+" fun! Format()
+"     if &ft =~ 'haskell'
+"         Neoformat
+"     else
+"         CocAction('format');
+"     endif
+" endfun
+" nnoremap <silent><nowait> <space>f :call Format()<CR>
+
+" augroup fmt
+"   autocmd!
+"   autocmd BufWritePre * undojoin | Neoformat
+" augroup END
