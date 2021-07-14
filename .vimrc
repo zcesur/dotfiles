@@ -51,13 +51,12 @@ set softtabstop=4
 set shiftwidth=4
 set smarttab
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-au Filetype haskell,typescript,typescriptreact,java,css,scss,yaml,htmldjango setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+au Filetype haskell,typescript,typescriptreact,css,scss,yaml,htmldjango setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 au Filetype vim let g:vim_indent_cont = &sw
 
 " Misc. mappings
 nnoremap <Leader><Space> :noh<CR>
 xnoremap p pgvy
-nnoremap <Space> @q
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -81,6 +80,7 @@ let g:slimux_select_from_current_window = 1
 let g:go_fmt_fail_silently = 1
 let g:go_highlight_diagnostic_errors=0
 let g:go_highlight_diagnostic_warnings=0
+" let g:go_gopls_enabled = 0
 
 " yats.vim config
 hi link tsxTag tsxTagName
@@ -122,6 +122,7 @@ augroup comment
     au FileType vim setlocal commentstring=\"\ %s
     au FileType html setlocal commentstring=<!--\ %s\ -->
     au FileType dosini setlocal commentstring=;\ %s
+    au FileType sml setlocal commentstring=(*\ %s\ *)
 augroup END
 
 " coc config
