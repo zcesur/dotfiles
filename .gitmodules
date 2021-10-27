@@ -68,3 +68,9 @@
 [submodule ".vim/pack/plugins/start/Vim-Jinja2-Syntax"]
 	path = .vim/pack/plugins/start/Vim-Jinja2-Syntax
 	url = git@github.com:Glench/Vim-Jinja2-Syntax.git
+[submodule "go/src/algora/vim-jinja"]
+	path = go/src/algora/vim-jinja
+	url = git@github.com:lepture/vim-jinja.git
+[submodule ".vim/pack/plugins/start/vim-jinja"]
+	path = .vim/pack/plugins/start/vim-jinja
+	url = git@github.com:lepture/vim-jinja.git
