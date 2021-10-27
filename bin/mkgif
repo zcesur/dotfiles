@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+ARGS="$*"
+
+for i in "$@"; do
+    case $i in
+        -f=*)
+            FNAME="${i#*=}"
+            shift
+            ;;
+        -e)
+            EDIT=1
+            shift
+            ;;
+        -s)
+            SELECT=1
+            shift
+            ;;
+        -g=*)
+            GEOSPEC="${i#*=}"
+            shift
+            ;;
+        *)
+            FFMPEG_ARGS+=" ${i//=/ }"
+            shift
+            ;;
+    esac
+done
+
+
+FBASEPATH="${PWD}/${FNAME:-out$(date +%s)}"
+VIDPATH="${FBASEPATH}.avi"
+GIFPATH="${FBASEPATH}.gif"
+
+if [[ -n ${SELECT+x} ]] && [[ -z ${GEOSPEC+x} ]] ; then
+    GEOSPEC="$(ffcast -s)"
+    echo mkgif ${ARGS} -g=${GEOSPEC}
+    exit 0
+fi
+
+case "${GEOSPEC}" in
+    "") REGION="-s" ;;
+    *)  REGION="-g ${GEOSPEC}" ;;
+esac
+
+# Validate args
+
+if [[ -n ${EDIT+x} ]] && [[ -z ${FNAME+x} ]]; then
+    echo You must provide a filename to use the '--edit' flag. >&2
+    exit 1
+fi
+
+if [[ -n ${FNAME+x} ]] && [[ ! -f ${VIDPATH} ]]; then
+    echo File ${VIDPATH} does not exist. >&2
+    exit 1
+fi
+
+# Record new video (unless edit mode is enabled)
+
+if [[ -z ${EDIT+x} ]]; then
+    ffcast $(echo ${REGION}) \
+        ffmpeg -y -f x11grab -show_region 1 -framerate 15 \
+        -video_size %s -i %D+%c -codec:v huffyuv \
+        -vf crop="iw-mod(iw\\,2):ih-mod(ih\\,2)" ${VIDPATH} || exit 1
+fi
+
+# Convert to gif
+
+ffmpeg \
+    -i "${VIDPATH}" \
+    -r 15 \
+    -vf "split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
+    $(echo ${FFMPEG_ARGS}) \
+    "${GIFPATH}"
