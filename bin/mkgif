@@ -1,15 +1,49 @@
 #!/usr/bin/env bash
 
-ARGS="$*"
+function get_duration () {
+    ffprobe -v error -show_entries format=duration -sexagesimal \
+        -of default=noprint_wrappers=1:nokey=1 "$1"
+}
+
+function record () {
+    local OUT="$1"; shift
+
+    ffcast $@ ffmpeg -y -f x11grab -show_region 1 -framerate 15 \
+        -video_size %s -i %D+%c -codec:v huffyuv \
+        -vf crop="iw-mod(iw\\,2):ih-mod(ih\\,2)" "${OUT}"
+}
+
+function edit () {
+    local IN="$1"; shift
+    local OUT="$1"; shift
+
+    ffmpeg $@ \
+        -i "${IN}" \
+        -r 15 \
+        -vf "split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
+        "${OUT}"
+}
 
 for i in "$@"; do
     case $i in
         -f=*)
-            FNAME="${i#*=}"
+            NAME="${i#*=}"
+            shift
+            ;;
+        -i)
+            INFO=1
             shift
             ;;
         -e)
-            EDIT=1
+            EXPORT=1
+            shift
+            ;;
+        -r)
+            RECORD=1
+            shift
+            ;;
+        -p)
+            PLAY=1
             shift
             ;;
         -s)
@@ -21,54 +55,54 @@ for i in "$@"; do
             shift
             ;;
         *)
-            FFMPEG_ARGS+=" ${i//=/ }"
+            FFARGS+=" ${i//=/ }"
             shift
             ;;
     esac
 done
 
-
-FBASEPATH="${PWD}/${FNAME:-out$(date +%s)}"
-VIDPATH="${FBASEPATH}.avi"
-GIFPATH="${FBASEPATH}.gif"
-
-if [[ -n ${SELECT+x} ]] && [[ -z ${GEOSPEC+x} ]] ; then
-    GEOSPEC="$(ffcast -s)"
-    echo mkgif ${ARGS} -g=${GEOSPEC}
-    exit 0
-fi
+BASEPATH="${PWD}/${NAME:-out$(date +%s)}"
+VIDPATH="${BASEPATH}.avi"
+GIFPATH="${BASEPATH}.gif"
 
 case "${GEOSPEC}" in
-    "") REGION="-s" ;;
-    *)  REGION="-g ${GEOSPEC}" ;;
+    "") REGION_ARG="-s" ;;
+    *)  REGION_ARG="-g ${GEOSPEC}" ;;
 esac
 
-# Validate args
+if [[ -n ${INFO+x} ]]; then
+    echo "Duration: $(get_duration "${VIDPATH}")"
+    exit
 
-if [[ -n ${EDIT+x} ]] && [[ -z ${FNAME+x} ]]; then
-    echo You must provide a filename to use the '--edit' flag. >&2
-    exit 1
+elif [[ -n ${SELECT+x} ]] && [[ -z ${GEOSPEC+x} ]]; then
+    ffcast -s
+    exit
+
+elif [[ -n ${RECORD+x} ]]; then
+    record "${VIDPATH}" $(echo ${REGION_ARG}) || exit 1
+    echo "Recorded video ${VIDPATH}"
+    echo "Duration: $(get_duration "${VIDPATH}")"
+    exit
+
+elif [[ -n ${EXPORT+x} ]]; then
+    if [[ -z ${NAME+x} ]]; then
+        echo "You must provide a filename to use the export (-e) flag." >&2
+        exit 1
+    fi
+    if [[ ! -f ${VIDPATH} ]]; then
+        echo "File ${VIDPATH} does not exist." >&2
+        exit 1
+    fi
+
+    edit "${VIDPATH}" "${GIFPATH}" $(echo ${FFARGS}) || exit 1
+    echo "Exported GIF ${GIFPATH}"
+    exit
+
+elif [[ -n ${PLAY+x} ]]; then
+    ffplay $(echo ${FFARGS}) "${VIDPATH}"
+    exit
+
+else
+    echo "Nothing to do."
+    exit
 fi
-
-if [[ -n ${FNAME+x} ]] && [[ ! -f ${VIDPATH} ]]; then
-    echo File ${VIDPATH} does not exist. >&2
-    exit 1
-fi
-
-# Record new video (unless edit mode is enabled)
-
-if [[ -z ${EDIT+x} ]]; then
-    ffcast $(echo ${REGION}) \
-        ffmpeg -y -f x11grab -show_region 1 -framerate 15 \
-        -video_size %s -i %D+%c -codec:v huffyuv \
-        -vf crop="iw-mod(iw\\,2):ih-mod(ih\\,2)" ${VIDPATH} || exit 1
-fi
-
-# Convert to gif
-
-ffmpeg \
-    -i "${VIDPATH}" \
-    -r 15 \
-    -vf "split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
-    $(echo ${FFMPEG_ARGS}) \
-    "${GIFPATH}"
