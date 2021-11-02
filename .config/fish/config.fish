@@ -5,6 +5,10 @@ end
 alias cfg "git --git-dir=$HOME/.myconf/ --work-tree=$HOME"
 
 set -x LD_LIBRARY_PATH $LD_LIBRARY_PATH /usr/local/lib
-set -x GOOGLE_APPLICATION_CREDENTIALS "$GOPATH/src/algora/deployment/firebase-admin-sdk.json"
+set -x GOOGLE_APPLICATION_CREDENTIALS "$GOPATH/src/algora/custom/conf/firebase-admin-sdk.json"
 
 if test -f '/usr/local/google-cloud-sdk/path.fish.inc'; source '/usr/local/google-cloud-sdk/path.fish.inc'; end
+
+bass source ~/.nix-profile/etc/profile.d/nix.sh
+
+direnv hook fish | source
