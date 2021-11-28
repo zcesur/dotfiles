@@ -1,0 +1,44 @@
+font:
+  normal:
+    family: Source Code Pro
+    style: Regular
+  bold:
+    family: Source Code Pro
+    style: Regular
+  italic:
+    family: Source Code Pro
+    style: Italic
+  bold_italic:
+    family: Source Code Pro
+    style: Bold Italic
+  size: 10
+
+# Based on Tomorrow Night Eighties palette
+colors:
+  primary:
+    background: '#2d2d2d'
+    foreground: '#cccccc'
+  cursor:
+    text: '#2d2d2d'
+    cursor: '#aeafad'
+  normal:
+    black:   '#000000'
+    red:     '#f2777a'
+    green:   '#99cc99'
+    yellow:  '#f99157'
+    blue:    '#6699cc'
+    magenta: '#cc99cc'
+    cyan:    '#66cccc'
+    white:   '#515151'
+  bright:
+    black:   '#666666'
+    red:     '#ff3334'
+    green:   '#9ec400'
+    yellow:  '#ffcc66'
+    blue:    '#6699cc'
+    magenta: '#b777e0'
+    cyan:    '#54ced6'
+    white:   '#393939'
+
+custom_cursor_colors: true
+draw_bold_text_with_bright_colors: true
